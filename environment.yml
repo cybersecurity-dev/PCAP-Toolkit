@@ -3,6 +3,7 @@ channels:
   - conda-forge
   - anaconda
 dependencies:
+  - python=3.12.5
   - scapy=2.5.0
   - pyshark=0.6
   - pandas=2.2.2
