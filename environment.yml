@@ -1,7 +1,7 @@
 channels:
-  - anaconda
-  - conda-forge
   - defaults
+  - conda-forge
+  - anaconda
 dependencies:
   - scapy
   - pyshark
@@ -11,3 +11,5 @@ dependencies:
   - bs4
   - cryptography
   - numpy
+  - openssl
+  - scipy
