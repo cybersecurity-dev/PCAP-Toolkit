@@ -10,6 +10,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - run: apt update
+    - run: apt install python3.12.5
     - name: Set up Python 3.12.5
       uses: actions/setup-python@v3
       with:
