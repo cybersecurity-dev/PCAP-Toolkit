@@ -4,14 +4,14 @@ channels:
   - anaconda
 dependencies:
   - python=3.12.5
+  - numpy=1.26.4
+  - pandas=2.2.2
   - scapy=2.5.0
   - pyshark=0.6
-  - pandas=2.2.2
-  - matplotlib=3.9.1
+  - matplotlib=3.8.4
   - requests=2.32.3
   - bs4=4.12.3
   - cryptography=42.0.5
-  - numpy=2.0.1
   - openssl=3.3.1
   - scipy=1.13.1
   - beautifulsoup4=4.12.3
