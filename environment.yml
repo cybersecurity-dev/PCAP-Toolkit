@@ -11,9 +11,12 @@ dependencies:
   - matplotlib=3.8.4
   - requests=2.32.3
   - bs4=4.12.3
-  - cryptography=42.0.5
+  - cryptography=41.0.3
+  - libgcrypt=1.11.0
+  - libxcrypt=4.4.36
   - openssl=3.3.1
   - scipy=1.13.1
   - beautifulsoup4=4.12.3
   - seaborn=0.13.2
+  - geoip2=4.8.0
   - ydata-profiling=4.9.0
