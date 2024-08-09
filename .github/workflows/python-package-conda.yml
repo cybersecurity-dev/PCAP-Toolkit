@@ -21,6 +21,7 @@ jobs:
     - name: Install dependencies
       run: |
         conda env update --file environment.yml --name workspace_pcap
+        source activate base
         conda activate workspace_pcap
     - name: Lint with flake8
       run: |
