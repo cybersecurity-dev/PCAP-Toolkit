@@ -55,12 +55,12 @@ def process_pcap(pcap_file, output_dir):
             pkt_size = len(packet)  # Packet size in bytes      
 
             # Update total traffic size for src->dst
-            ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_IP_ingoing'] += pkt_size
+            ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_IP_ingoing']    += pkt_size
             # Update total traffic size for dst->src
-            ip_to_ip_data[(dst_ip, src_ip)][pkt_time]['L2_IP_outgoing'] += pkt_size
+            ip_to_ip_data[(dst_ip, src_ip)][pkt_time]['L2_IP_outgoing']   += pkt_size
 
             
-            total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IP_ingoing'] += pkt_size
+            total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IP_ingoing']  += pkt_size
             total_ip_to_ip_data[(dst_ip, src_ip)]['L2_Total_IP_outgoing'] += pkt_size
 
         elif packet.haslayer(ARP):
@@ -69,12 +69,11 @@ def process_pcap(pcap_file, output_dir):
             dst_mac = packet[ARP].hwdst  # Destination MAC
 
             # Update total traffic size for src->dst
-            ip_to_ip_data[(src_mac, dst_mac)][pkt_time]['L2_ARP_ingoing'] += pkt_size
-            # Update total traffic size for dst->src
-            ip_to_ip_data[(dst_mac, src_mac)][pkt_time]['L2_ARP_outgoing'] += pkt_size
+            ip_to_ip_data[(src_mac, dst_mac)][pkt_time]['L2_ARP_ingoing']    += pkt_size
+            #Update total traffic size for dst->src
+            ip_to_ip_data[(dst_mac, src_mac)][pkt_time]['L2_ARP_outgoing']   += pkt_size
 
-
-            total_ip_to_ip_data[(src_mac, dst_mac)]['L2_Total_ARP_ingoing'] += pkt_size
+            total_ip_to_ip_data[(src_mac, dst_mac)]['L2_Total_ARP_ingoing']  += pkt_size
             total_ip_to_ip_data[(dst_mac, src_mac)]['L2_Total_ARP_outgoing'] += pkt_size
 
         elif packet.haslayer(ICMP):
@@ -83,12 +82,12 @@ def process_pcap(pcap_file, output_dir):
             pkt_size = len(packet)  # Packet size in bytes
 
             # Update total traffic size for src->dst
-            ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_ICMP_ingoing'] += pkt_size
-            # Update total traffic size for dst->src
-            ip_to_ip_data[(dst_ip, src_ip)][pkt_time]['L2_ICMP_outgoing'] += pkt_size
+            ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_ICMP_ingoing']    += pkt_size
+            #Update total traffic size for dst->src
+            ip_to_ip_data[(dst_ip, src_ip)][pkt_time]['L2_ICMP_outgoing']   += pkt_size
 
 
-            total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_ICMP_ingoing'] += pkt_size
+            total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_ICMP_ingoing']  += pkt_size
             total_ip_to_ip_data[(dst_ip, src_ip)]['L2_Total_ICMP_outgoing'] += pkt_size
 
 
@@ -98,25 +97,25 @@ def process_pcap(pcap_file, output_dir):
             pkt_size = len(packet)  # Packet size in bytes
 
             # Update total traffic size for src->dst
-            ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_IGMP_ingoing'] += pkt_size
+            ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_IGMP_ingoing']     += pkt_size
             # Update total traffic size for dst->src
-            ip_to_ip_data[(dst_ip, src_ip)][pkt_time]['L2_IGMP_outgoing'] += pkt_size
+            ip_to_ip_data[(dst_ip, src_ip)][pkt_time]['L2_IGMP_outgoing']    += pkt_size
 
 
-            total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IGMP_ingoing'] += pkt_size
-            total_ip_to_ip_data[(dst_ip, src_ip)]['L2_Total_IGMP_outgoing'] += pkt_size
+            total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IGMP_ingoing']   += pkt_size
+            total_ip_to_ip_data[(dst_ip, src_ip)]['L2_Total_IGMP_outgoing']  += pkt_size
 
         else:
             # Update total traffic size for src->dst
-            ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_Other_ingoing'] += pkt_size
+            ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_Other_ingoing']    += pkt_size
             # Update total traffic size for dst->src
-            ip_to_ip_data[(dst_ip, src_ip)][pkt_time]['L2_Other_outgoing'] += pkt_size
+            ip_to_ip_data[(dst_ip, src_ip)][pkt_time]['L2_Other_outgoing']   += pkt_size
         
 
-            total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_Other_ingoing'] += pkt_size
+            total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_Other_ingoing']  += pkt_size
             total_ip_to_ip_data[(dst_ip, src_ip)]['L2_Total_Other_outgoing'] += pkt_size
 
-    print(total_ip_to_ip_data)
+    #print(total_ip_to_ip_data)
     for (src_ip, dst_ip), time_series_data in ip_to_ip_data.items():
         print(src_ip, dst_ip)
         all_timestamp_key = list(time_series_data.keys())
@@ -143,24 +142,22 @@ def process_pcap(pcap_file, output_dir):
 
             for timestamp, sizes in sorted(sorted_data.items()):
                 row = {'timestamp': timestamp, 'source_ip': src_ip, 'destination_ip': dst_ip}
-                
-                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IP_ingoing'] -= sizes['L2_IP_ingoing']
-                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IP_outgoing'] -= sizes['L2_IP_outgoing']
+                                
+                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IP_ingoing']     -= sizes['L2_IP_ingoing']
+                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IP_outgoing']    -= sizes['L2_IP_outgoing']
 
-                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_ARP_ingoing'] -= sizes['L2_ARP_ingoing']
-                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_ARP_outgoing'] -= sizes['L2_ARP_outgoing']
+                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_ARP_ingoing']    -= sizes['L2_ARP_ingoing']
+                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_ARP_outgoing']   -= sizes['L2_ARP_outgoing']
 
-                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_ICMP_ingoing'] -= sizes['L2_ICMP_ingoing']
-                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_ICMP_outgoing'] -= sizes['L2_ICMP_outgoing']
+                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_ICMP_ingoing']   -= sizes['L2_ICMP_ingoing']
+                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_ICMP_outgoing']  -= sizes['L2_ICMP_outgoing']
 
-                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IGMP_ingoing'] -= sizes['L2_IGMP_ingoing']
-                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IGMP_outgoing'] -= sizes['L2_IGMP_outgoing']
+                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IGMP_ingoing']   -= sizes['L2_IGMP_ingoing']
+                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_IGMP_outgoing']  -= sizes['L2_IGMP_outgoing']
 
-                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_Other_ingoing'] -= sizes['L2_Other_ingoing']
+                total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_Other_ingoing']  -= sizes['L2_Other_ingoing']
                 total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_Other_outgoing'] -= sizes['L2_Other_outgoing']
 
-                row.update(sizes)
-                writer.writerow(row)
                 row.update(sizes)
                 writer.writerow(row)
     #Check everything is calculated correctly
