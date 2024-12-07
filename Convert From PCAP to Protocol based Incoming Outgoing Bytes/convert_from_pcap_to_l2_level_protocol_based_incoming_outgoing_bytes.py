@@ -2,16 +2,15 @@ import os, sys
 import os.path, time
 import csv
 import pandas as pd
-import matplotlib.pyplot as plt
+
 from collections import defaultdict
-from datetime import timedelta
 from datetime import datetime, timezone
-from scapy.all import rdpcap
-from pprint import pprint
+
+import scapy.contrib.igmp
 from scapy.layers.inet import ICMP
 from scapy.layers.l2 import ARP
-import scapy.contrib.igmp
-import time
+from scapy.all import rdpcap, IP
+
 
 def print_dic(ip_to_ip_data):
     # Print a portion of the dictionary
@@ -49,11 +48,11 @@ def process_pcap(pcap_file, output_dir):
         timestamp = packet.time
         pkt_time = datetime.fromtimestamp(float(timestamp)).strftime('%Y-%m-%d %H:%M:%S.%f')
         #pkt_time = datetime.fromtimestamp(int(timestamp), timezone.utc)
-        if packet.haslayer('IP'):
-            src_ip = packet['IP'].src
-            dst_ip = packet['IP'].dst
-            pkt_size = len(packet)  # Packet size in bytes      
-
+        pkt_size = len(packet)  # Packet size in bytes   
+        if packet.haslayer(IP):
+            src_ip = packet[IP].src
+            dst_ip = packet[IP].dst
+            
             # Update total traffic size for src->dst
             ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_IP_ingoing']    += pkt_size
             # Update total traffic size for dst->src
@@ -64,7 +63,6 @@ def process_pcap(pcap_file, output_dir):
             total_ip_to_ip_data[(dst_ip, src_ip)]['L2_Total_IP_outgoing'] += pkt_size
 
         elif packet.haslayer(ARP):
-            pkt_size = len(packet)  # Packet size in bytes
             src_mac = packet[ARP].hwsrc  # Source MAC
             dst_mac = packet[ARP].hwdst  # Destination MAC
 
@@ -77,9 +75,8 @@ def process_pcap(pcap_file, output_dir):
             total_ip_to_ip_data[(dst_mac, src_mac)]['L2_Total_ARP_outgoing'] += pkt_size
 
         elif packet.haslayer(ICMP):
-            src_ip = packet['IP'].src
-            dst_ip = packet['IP'].dst
-            pkt_size = len(packet)  # Packet size in bytes
+            src_ip = packet[IP].src
+            dst_ip = packet[IP].dst
 
             # Update total traffic size for src->dst
             ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_ICMP_ingoing']    += pkt_size
@@ -92,9 +89,8 @@ def process_pcap(pcap_file, output_dir):
 
 
         elif packet.haslayer(IGMP):
-            src_ip = packet['IP'].src
-            dst_ip = packet['IP'].dst
-            pkt_size = len(packet)  # Packet size in bytes
+            src_ip = packet[IP].src
+            dst_ip = packet[IP].dst
 
             # Update total traffic size for src->dst
             ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_IGMP_ingoing']     += pkt_size
@@ -109,8 +105,7 @@ def process_pcap(pcap_file, output_dir):
             # Update total traffic size for src->dst
             ip_to_ip_data[(src_ip, dst_ip)][pkt_time]['L2_Other_ingoing']    += pkt_size
             # Update total traffic size for dst->src
-            ip_to_ip_data[(dst_ip, src_ip)][pkt_time]['L2_Other_outgoing']   += pkt_size
-        
+            ip_to_ip_data[(dst_ip, src_ip)][pkt_time]['L2_Other_outgoing']   += pkt_size     
 
             total_ip_to_ip_data[(src_ip, dst_ip)]['L2_Total_Other_ingoing']  += pkt_size
             total_ip_to_ip_data[(dst_ip, src_ip)]['L2_Total_Other_outgoing'] += pkt_size
