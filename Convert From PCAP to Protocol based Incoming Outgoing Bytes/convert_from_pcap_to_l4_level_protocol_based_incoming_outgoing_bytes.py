@@ -2,16 +2,13 @@ import os, sys
 import os.path, time
 import csv
 import pandas as pd
-import matplotlib.pyplot as plt
+
 from collections import defaultdict
-from datetime import timedelta
 from datetime import datetime, timezone
-from scapy.all import rdpcap
-from pprint import pprint
+
+from scapy.all import rdpcap, IP, TCP, UDP
 from scapy.layers.inet import ICMP
 from scapy.layers.l2 import ARP
-import scapy.contrib.igmp
-import time
 
 def print_dic(ip_to_HTTP_data):
     # Print a portion of the dictionary
@@ -57,12 +54,11 @@ def process_pcap(pcap_file, output_dir):
         timestamp = packet.time
         pkt_time = datetime.fromtimestamp(float(timestamp)).strftime('%Y-%m-%d %H:%M:%S.%f')
         #pkt_time = datetime.fromtimestamp(int(timestamp), timezone.utc)
-        if packet.haslayer('IP'):
-            ip_layer = packet['IP']
-            tcp_layer = packet.getlayer('TCP')
-            udp_layer = packet.getlayer('UDP')
-            src_ip = packet['IP'].src
-            dst_ip = packet['IP'].dst
+        if packet.haslayer(IP):
+            tcp_layer = packet.getlayer(TCP)
+            udp_layer = packet.getlayer(UDP)
+            src_ip = packet[IP].src
+            dst_ip = packet[IP].dst
             pkt_size = len(packet)  # Packet size in bytes  
             if tcp_layer:
                 if tcp_layer.dport == 80 or tcp_layer.sport == 80:
