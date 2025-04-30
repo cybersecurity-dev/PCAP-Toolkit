@@ -1,0 +1,38 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#f0f8ff"/>
+
+  <rect x="50" y="30" width="150" height="40" fill="#3498db" rx="5"/>
+  <text x="125" y="55" fill="white" font-size="16" text-anchor="middle">7. Application</text>
+  <text x="220" y="45" fill="#333" font-size="12">End User layer</text>
+  <text x="220" y="60" fill="#333" font-size="12">HTTP, FTP, IRC, SSH, DNS</text>
+
+  <rect x="50" y="80" width="150" height="40" fill="#2ecc71" rx="5"/>
+  <text x="125" y="105" fill="white" font-size="16" text-anchor="middle">6. Presentation</text>
+  <text x="220" y="95" fill="#333" font-size="12">Syntax layer</text>
+  <text x="220" y="110" fill="#333" font-size="12">SSL, SSH, IMAP, FTP, MPEG, JPEG</text>
+
+  <rect x="50" y="130" width="150" height="40" fill="#9b59b6" rx="5"/>
+  <text x="125" y="155" fill="white" font-size="16" text-anchor="middle">5. Session</text>
+  <text x="220" y="145" fill="#333" font-size="12">Synch &amp; send to port</text>
+  <text x="220" y="160" fill="#333" font-size="12">API's, Sockets, WinSock</text>
+
+  <rect x="50" y="180" width="150" height="40" fill="#f39c12" rx="5"/>
+  <text x="125" y="205" fill="white" font-size="16" text-anchor="middle">4. Transport</text>
+  <text x="220" y="195" fill="#333" font-size="12">End-to-end connections</text>
+  <text x="220" y="210" fill="#333" font-size="12">TCP, UDP</text>
+
+  <rect x="50" y="230" width="150" height="40" fill="#e74c3c" rx="5"/>
+  <text x="125" y="255" fill="white" font-size="16" text-anchor="middle">3. Network</text>
+  <text x="220" y="245" fill="#333" font-size="12">Packets</text>
+  <text x="220" y="260" fill="#333" font-size="12">IP, ICMP, IPSec, IGMP</text>
+
+  <rect x="50" y="280" width="150" height="40" fill="#1abc9c" rx="5"/>
+  <text x="125" y="305" fill="white" font-size="16" text-anchor="middle">2. Data Link</text>
+  <text x="220" y="295" fill="#333" font-size="12">Frames</text>
+  <text x="220" y="310" fill="#333" font-size="12">Ethernet, PPP, Switch, Bridge</text>
+
+  <rect x="50" y="330" width="150" height="40" fill="#d35400" rx="5"/>
+  <text x="125" y="355" fill="white" font-size="16" text-anchor="middle">1. Physical</text>
+  <text x="220" y="345" fill="#333" font-size="12">Physical structure</text>
+  <text x="220" y="360" fill="#333" font-size="12">Coax, Fiber, Wireless, Hubs, Repeaters</text>
+</svg>
