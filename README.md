@@ -1,10 +1,13 @@
-<p align="center">
-    <a href="https://en.wikipedia.org/wiki/OSI_model">
-      <img width="50%" src="https://github.com/cybersecurity-dev/cybersecurity-dev/blob/main/assets/Wireshark_Logo.svg" />
-    </a>
-</p>
+<div align="center">
+    <p align="center">
+        <a href="https://wikipedia.org/wiki/OSI_model">
+          <img width="40%" src="https://github.com/cybersecurity-dev/cybersecurity-dev/blob/main/assets/Wireshark_Logo.svg" />
+        </a>
+    </p>
 
-# [PCAP](https://en.wikipedia.org/wiki/Pcap) Feature [Extractor](https://en.wikipedia.org/wiki/Packet_analyzer) Toolkit
+# [PCAP](https://wikipedia.org/wiki/Pcap) Feature [Extractor](https://wikipedia.org/wiki/Packet_analyzer) Toolkit
+</div>
+
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)]()
 [![Reddit](https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white)]()
 
