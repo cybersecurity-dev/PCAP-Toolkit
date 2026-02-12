@@ -28,7 +28,7 @@
 ### For Ubuntu 18.04, 20.04, 22.04
 
 ```bash
-sudo apt-get update
+sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y install wireshark
 ```
 </details>
 
@@ -40,6 +40,7 @@ sudo apt-get update
 ### For Windows 11
 
 ```powershell
+winget install -e --id WiresharkFoundation.Wireshark
 ```
 </details>
 
